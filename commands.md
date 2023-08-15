@@ -36,9 +36,16 @@
     - php artisan make:Request NameRequest
 
 #### Eloquent
-    - Model::all()
-    - Model::save()
-    - Model::findOrFail()
+    - Ferramenta de debug para debugar queries
+        - composer require laravel/telescope
+        - php artisan telescope:install
+        - php artisan migrate
+    
+    - Ferramenta opcional (Para ambiente web)
+        - composer require barryvdh/laravel-debugbar --dev 
+
+    - Ferramenta para adionar nova coluna e manter dados 
+        - composer require doctrine/dbal
 
 #### personalizar host
     - sudo nano /etc/hosts
