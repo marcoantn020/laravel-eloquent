@@ -126,6 +126,57 @@ Route::get('/soft-delete', function () {
     return $posts;
 });
 
+Route::get('/accessor', function (){
+    $post = Post::first();
+
+    return $post;
+});
+
+Route::get('/mutators', function (){
+    $user = User::first();
+    $post = Post::create([
+        'user_id' => $user->id,
+        'title' => Str::random(),
+        'body' => 'um body',
+        'date' => now()
+    ]);
+
+    return $post;
+});
+
+Route::get('/local-scope', function (){
+//    return Post::lastWeek()->get();
+    return Post::yesterday()->get();
+});
+
+Route::get('/anonymous-global-scopes', function (){
+//    return Post::get();
+    return Post::withoutGlobalScope('year')->get();
+});
+
+Route::get('/global-scopes', function (){
+//    return Post::get();
+    return Post::withoutGlobalScope(\App\Scopes\YearScope::class)->get();
+});
+
+Route::get('/observer', function (){
+    $post = Post::create([
+        'title' => Str::random(16),
+        'body' => Str::random(100),
+        'date' => \Carbon\Carbon::now(),
+    ]);
+    return $post;
+});
+
+Route::get('/events', function (){
+    $post = Post::create([
+        'title' => Str::random(),
+        'body' => Str::random(100),
+        'date' => \Carbon\Carbon::now(),
+    ]);
+    return $post;
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
